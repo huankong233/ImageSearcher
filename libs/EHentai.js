@@ -3,21 +3,25 @@ import _ from 'lodash'
 
 export function parse(body) {
   const $ = cheerio.load(body)
-  return _.map($('.glte > tbody > tr'), result => {
-    const title = $('.glink', result),
-      [image] = $('.gl1e img', result),
-      [link] = $('.gl1e a', result),
-      type = $('.gl3e .cn', result),
-      date = $('.gl3e [id^=posted]', result),
-      tags = $('.gl4e table td > div[class]', result)
-    return {
-      title: title.text(),
-      image: image.attribs.src,
-      link: link.attribs.href,
-      type: type.text().toUpperCase(),
-      date: date.text(),
-      tags: _.map(tags, tag => $(tag).text())
+  return _.map($('.gltc > tbody > tr'), (result, index) => {
+    if (index !== 0) {
+      const title = $('.glink', result),
+        [image] = $('.glthumb img', result),
+        [link] = $('.gl3c a', result),
+        type = $('.gl1c .cn', result),
+        date = $('.gl2c [id^=posted]', result).eq(0),
+        tags = $('.gl3c .gt', result)
+      return {
+        title: title.text(),
+        image: image.attribs.src,
+        link: link.attribs.href,
+        type: type.text().toUpperCase(),
+        date: date.text(),
+        tags: _.map(tags, tag => $(tag).text())
+      }
     }
+  }).filter(res => {
+    return res != undefined
   })
 }
 
