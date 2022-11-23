@@ -1,5 +1,5 @@
 {
-  "name": "ImageSearcher",
+  "name": "image_searcher",
   "version": "0.0.1",
   "description": "搜图库(?)",
   "main": "index.js",
