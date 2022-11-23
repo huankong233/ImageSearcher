@@ -18,5 +18,4 @@ yarn test
 ~~~
 
 # ⭐星星！
-
 [![Stargazers over time](https://starchart.cc/huankong233/ImageSearcher.svg)](https://starchart.cc/huankong233/ImageSearcher)
