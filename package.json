@@ -1,6 +1,6 @@
 {
   "name": "image_searcher",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "搜图库(?)",
   "main": "index.js",
   "scripts": {
