@@ -1,13 +1,13 @@
 {
   "name": "image_searcher",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "搜图库(?)",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
   "type": "module",
-  "repository": "https://github.com/huankong233/SearchImage",
+  "repository": "https://github.com/huankong233/ImageSearcher",
   "author": "huan_kong",
   "license": "MIT",
   "dependencies": {
