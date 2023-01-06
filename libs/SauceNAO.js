@@ -1,3 +1,26 @@
+import fetch from 'node-fetch'
+import { FormData } from 'formdata-node'
+import { fileFromPath } from 'formdata-node/file-from-path'
+
+export const BASE_URL = 'https://saucenao.com'
+
+export async function SauceNAO(req) {
+  const { hide, imagePath, url } = req
+  let form = new FormData()
+  if (imagePath) {
+    form.append('file', await fileFromPath(imagePath))
+  } else if (url) {
+    form.append('url', url)
+  } else {
+    throw Error("please input file or url")
+  }
+  if (hide) form.append('hide', '3')
+  const response = await fetch(`${BASE_URL}/search.php`, { method: 'POST', body: form }).then(res =>
+    res.text()
+  )
+  return parse(response)
+}
+
 import * as cheerio from 'cheerio'
 import _ from 'lodash'
 export function parse(body) {
@@ -27,20 +50,3 @@ export function parse(body) {
     .sort((a, b) => a.similarity - b.similarity)
     .reverse()
 }
-
-import fetch from 'node-fetch'
-import { FormData } from 'formdata-node'
-import { fileFromPath } from 'formdata-node/file-from-path'
-
-export async function SauceNAO(req) {
-  const { hide, imagePath } = req
-  let form = new FormData()
-  form.append('file', await fileFromPath(imagePath))
-  if (hide) form.append('hide', '3')
-  const response = await fetch(`${BASE_URL}/search.php`, { method: 'POST', body: form }).then(res =>
-    res.text()
-  )
-  return parse(response)
-}
-
-export const BASE_URL = 'https://saucenao.com'

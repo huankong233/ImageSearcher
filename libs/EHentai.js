@@ -1,3 +1,62 @@
+import fs from 'fs'
+import fetch from 'node-fetch'
+import { FormData } from 'formdata-node'
+import { fileFromPath } from 'formdata-node/file-from-path'
+import { getRangeCode, downloadFile } from './download.js'
+
+export const BASE_URLs = {
+  eh: 'https://upld.e-hentai.org/image_lookup.php',
+  ex: 'https://exhentai.org/upld/image_lookup.php'
+}
+
+export async function EHentai(req) {
+  const { imagePath, url } = req
+
+  const form = new FormData()
+  if (imagePath) {
+    form.append('sfile', await fileFromPath(imagePath))
+    return await request(form, req)
+  } else if (url) {
+    //download image
+    const fileName = getRangeCode(10) + '.temp'
+    const outPath = './temp'
+    const fullPath = `${outPath}/${fileName}`
+    await downloadFile(url, outPath, fileName)
+    form.append('sfile', await fileFromPath(fullPath))
+    const data = await request(form, req)
+    fs.unlinkSync(fullPath)
+    return data
+  } else if (!imagePath) {
+    throw Error("please input file or url")
+  }
+}
+
+export async function request(form, req) {
+  const { site, cover, deleted, similar, EH_COOKIE } = req
+
+  form.append('f_sfile', 'search')
+  if (cover) form.append('fs_covers', 'on')
+  if (similar) form.append('fs_similar', 'on')
+  if (deleted) form.append('fs_exp', 'on')
+
+  let response
+  if (site === 'eh') {
+    response = await fetch(BASE_URLs['eh'], {
+      method: 'POST',
+      body: form
+    }).then(res => res.text())
+  } else if (site === 'ex') {
+    response = await fetch(BASE_URLs['ex'], {
+      method: 'POST',
+      body: form,
+      headers: { Cookie: EH_COOKIE }
+    }).then(res => res.text())
+  }
+
+  return parse(response)
+}
+
+
 import * as cheerio from 'cheerio'
 import _ from 'lodash'
 
@@ -23,40 +82,4 @@ export function parse(body) {
   }).filter(res => {
     return res != undefined
   })
-}
-
-import fetch from 'node-fetch'
-import { FormData } from 'formdata-node'
-import { fileFromPath } from 'formdata-node/file-from-path'
-
-export async function EHentai(req) {
-  const { site, cover, deleted, similar, imagePath, EH_COOKIE } = req
-
-  const form = new FormData()
-  form.append('sfile', await fileFromPath(imagePath))
-  form.append('f_sfile', 'search')
-  if (cover) form.append('fs_covers', 'on')
-  if (similar) form.append('fs_similar', 'on')
-  if (deleted) form.append('fs_exp', 'on')
-
-  let response
-  if (site === 'eh') {
-    response = await fetch(BASE_URLs['eh'], {
-      method: 'POST',
-      body: form
-    }).then(res => res.text())
-  } else if (site === 'ex') {
-    response = await fetch(BASE_URLs['ex'], {
-      method: 'POST',
-      body: form,
-      headers: { Cookie: EH_COOKIE }
-    }).then(res => res.text())
-  }
-
-  return parse(response)
-}
-
-export const BASE_URLs = {
-  eh: 'https://upld.e-hentai.org/image_lookup.php',
-  ex: 'https://exhentai.org/upld/image_lookup.php'
 }
