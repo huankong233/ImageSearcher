@@ -14,8 +14,6 @@ import _ from 'lodash'
 export function parse(body) {
   const $ = cheerio.load(body, { decodeEntities: true })
   return _.map($('.serp-list .serp-item'), item => {
-    const data = JSON.parse(item.attribs['data-bem'])['serp-item']
-    const { freshness, dups, snippet } = data
-    return { freshness, dups, snippet, origin: data }
+    return JSON.parse(item.attribs['data-bem'])['serp-item']
   }).filter(v => v !== undefined)
 }
