@@ -1,4 +1,4 @@
-import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai } from './index.js'
+import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
 
 /**
  * ascii2d
@@ -53,6 +53,15 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai } from './index.js'
 //   ]
 // })
 // console.dir(IqDB_response, { depth: null })
+
+/**
+ * Yandex
+ * 传入参数 url : "图片网址"
+ */
+// const Yandex_response = await Yandex({
+//   url: "https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0"
+// })
+// console.dir(Yandex_response, { depth: null })
 
 /**
  * TraceMoe
