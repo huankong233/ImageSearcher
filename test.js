@@ -9,7 +9,7 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
  */
 // let ascii2d_response = await ascii2d({
 //   type: 'bovw',
-//   url: "https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0"
+// url: 'https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0'
 //   // imagePath: './test.jpg'
 // })
 // console.dir(ascii2d_response, { depth: null })
@@ -59,7 +59,7 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
  * 传入参数 url : "图片网址"
  */
 // const Yandex_response = await Yandex({
-//   url: "https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0"
+//   url: 'https://gchat.qpic.cn/gchatpic_new/0/0-0-FC7B29BF86D322835C0CB1E955A54EB4/0'
 // })
 // console.dir(Yandex_response, { depth: null })
 
@@ -100,4 +100,3 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
 //   url: "https://p0.meituan.net/csc/01c18d9300be39d641e5ed6e75eae2df344267.jpg"
 // })
 // console.dir(EHentai_response, { depth: null })
-
