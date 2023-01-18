@@ -2,11 +2,11 @@ import fetch from 'node-fetch'
 import { FormData } from 'formdata-node'
 import { fileFromPath } from 'formdata-node/file-from-path'
 
-// export const BASE_URL = 'https://ascii2d.obfs.dev'
+export const PROXY_URL = 'https://ascii2d.obfs.dev'
 export const BASE_URL = 'https://ascii2d.net'
 
 export async function ascii2d(req) {
-  const { type, imagePath, url } = req
+  const { type, imagePath, url, proxy } = req
   const form = new FormData()
   if (imagePath) {
     form.append('file', await fileFromPath(imagePath))
@@ -15,10 +15,13 @@ export async function ascii2d(req) {
   } else {
     throw Error('please input file or url')
   }
-  const colorResponse = await fetch(`${BASE_URL}/search/${imagePath ? 'file' : 'uri'}`, {
-    method: 'POST',
-    body: form
-  })
+  const colorResponse = await fetch(
+    `${proxy ? PROXY_URL : BASE_URL}/search/${imagePath ? 'file' : 'uri'}`,
+    {
+      method: 'POST',
+      body: form
+    }
+  )
   if (colorResponse.status === 200) {
     let response
     if (type === 'color') {
