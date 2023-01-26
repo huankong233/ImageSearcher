@@ -6,10 +6,12 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
  *     用于 :     "颜色模式" "特征模式"
  * 传入参数 imagePath : "文件路径"
  * 传入参数 url : "图片网址"
+ * 传入参数 proxy : "是否使用反代请求"
  */
 // let ascii2d_response = await ascii2d({
 //   type: 'bovw',
-// url: 'https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0'
+//   url: 'https://gchat.qpic.cn/gchatpic_new/0/0-0-492A374606A6ACE39A820352F19D2DB5/0',
+//   proxy: true
 //   // imagePath: './test.jpg'
 // })
 // console.dir(ascii2d_response, { depth: null })
@@ -57,9 +59,10 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex } from './index.js'
 /**
  * Yandex
  * 传入参数 url : "图片网址"
+ * 传入参数 cookie : "可以有效避免被拦截(?貌似是的)"
  */
 // const Yandex_response = await Yandex({
-//   url: 'https://gchat.qpic.cn/gchatpic_new/0/0-0-FC7B29BF86D322835C0CB1E955A54EB4/0'
+//   url: 'https://i0.hdslb.com/bfs/music/5df67b07d8b4318ef7e65f33a543f4d939a4b125.jpg@370w_370h.webp'
 // })
 // console.dir(Yandex_response, { depth: null })
 

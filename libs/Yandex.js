@@ -1,10 +1,20 @@
 import fetch from 'node-fetch'
 
-export const BASE_URL = "https://yandex.com/"
+export const BASE_URL = 'https://yandex.com/'
 
 export async function Yandex(req) {
-  const { url } = req
-  const response = await fetch(`${BASE_URL}images/search?cbir_page=similar&rpt=imageview&url=${url}`).then(res => res.text())
+  const { url, cookie } = req
+  const response = await fetch(
+    `${BASE_URL}images/search?cbir_page=similar&rpt=imageview&url=${url}`,
+    { headers: { cookie } }
+  ).then(res => res.text())
+
+  if (response.search('Please confirm that you and not a robot are sending requests') !== -1) {
+    throw new Error(
+      `被拦截了,请求地址:${BASE_URL}images/search?cbir_page=similar&rpt=imageview&url=${url}`
+    )
+  }
+
   return parse(response)
 }
 
