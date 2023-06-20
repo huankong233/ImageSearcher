@@ -1,20 +1,18 @@
 # ImageSearcher
 
-写了给我机器人用的搜图库
-具体如何使用可以看`test.js`
+搜图库具体如何使用可以看`test.js`
 
 ## 🚀支持情况
 
-所有不推荐都不是原生支持
 | 搜索引擎    | url      | imagePath |
 | --------   | -------  | --------- |
-| ascii2d    | ✔        |✔         |
-| EHentai    | ✔        |✔         |
-| IqDB       | ✔        |✔         |
-| SauceNAO   | ✔        |✔         |
-| TraceMoe   | ✔        |✔         |
-| Yandex     | ✔        |❌        |
-| AnimeTrace | ✔        |✔         |
+| [ascii2d](https://ascii2d.net/)    | ✔        |✔         |
+| [EHentai](https://e-hentai.org)    | ✔        |✔         |
+| [IqDB](https://iqdb.org/)       | ✔        |✔         |
+| [SauceNAO](https://saucenao.com)   | ✔        |✔         |
+| [TraceMoe](https://trace.moe/)   | ✔        |✔         |
+| [Yandex](https://yandex.com/images)     | ✔        |❌        |
+| [AnimeTrace](https://ai.animedb.cn/) | ✔        |✔         |
 
 ## 🎉使用方法
 
@@ -30,7 +28,7 @@ git clone https://github.com/huankong233/ImageSearcher.git
 yarn install
 ~~~
 
-5.运行框架
+5.运行
 
 ~~~sh
 yarn test

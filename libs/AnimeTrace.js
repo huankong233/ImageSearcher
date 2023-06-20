@@ -15,6 +15,7 @@ export async function AnimeTrace(req) {
   } else if (url) {
     //download image
     const fullPath = await download(url)
+    req.imagePath = fullPath
     form.append('image', await fileFromPath(fullPath))
     const data = await request(req, form)
     fs.unlinkSync(fullPath)
@@ -36,9 +37,31 @@ export const request = async (req, form) => {
   ).then(res => res.json())
 
   if (response.code === 0) {
-    return response
+    return await parse(response, req)
   } else {
     console.log(response)
     throw new Error('请求失败')
   }
+}
+
+import Jimp from 'jimp'
+export const parse = async (response, req) => {
+  if (req.preview) {
+    const image = await Jimp.read(req.imagePath)
+    const width = image.getWidth()
+    const height = image.getHeight()
+    for (let i = 0; i < response.data.length; i++) {
+      const box = response.data[i].box
+      const newImage = image.clone()
+      // 裁切图片
+      newImage.crop(
+        width * box[0],
+        height * box[1],
+        width * (box[2] - box[0]),
+        height * (box[3] - box[1])
+      )
+      response.data[i].preview = await newImage.getBase64Async(Jimp.AUTO)
+    }
+  }
+  return response
 }

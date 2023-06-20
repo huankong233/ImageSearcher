@@ -35,14 +35,16 @@ export const download = async url => {
 
 // path：要删除的文件夹路径
 export const removeFileDir = path => {
-  var files = fs.readdirSync(path)
-  for (let item of files) {
-    var stats = fs.statSync(`${path}/${item}`)
-    if (stats.isDirectory()) {
-      removeFileDir(`${path}/${item}`)
-    } else {
-      fs.unlinkSync(`${path}/${item}`)
+  if (fs.existsSync(path)) {
+    var files = fs.readdirSync(path)
+    for (let item of files) {
+      var stats = fs.statSync(`${path}/${item}`)
+      if (stats.isDirectory()) {
+        removeFileDir(`${path}/${item}`)
+      } else {
+        fs.unlinkSync(`${path}/${item}`)
+      }
     }
+    fs.rmdirSync(path)
   }
-  fs.rmdirSync(path)
 }

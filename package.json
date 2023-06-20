@@ -1,6 +1,6 @@
 {
   "name": "image_searcher",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "搜图库(?)",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "formdata-node": "^5.0.0",
+    "jimp": "^0.22.8",
     "lodash": "^4.17.21",
     "node-fetch": "^3.3.0"
   }
