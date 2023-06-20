@@ -2,7 +2,7 @@ import fs from 'fs'
 import fetch from 'node-fetch'
 
 export async function downloadFile(url, filePath, fileName) {
-  fs.rmdirSync(filePath)
+  removeFileDir(filePath)
   fs.mkdirSync(filePath)
   const res = await fetch(url, {
     method: 'GET',
@@ -23,4 +23,26 @@ export const getRangeCode = (len = 6) => {
     returnStr += orgStr.charAt(Math.floor(Math.random() * orgStr.length))
   }
   return returnStr
+}
+
+export const download = async url => {
+  const fileName = getRangeCode(10) + '.png'
+  const outPath = './temp'
+  const fullPath = `${outPath}/${fileName}`
+  await downloadFile(url, outPath, fileName)
+  return fullPath
+}
+
+// path：要删除的文件夹路径
+export const removeFileDir = path => {
+  var files = fs.readdirSync(path)
+  for (let item of files) {
+    var stats = fs.statSync(`${path}/${item}`)
+    if (stats.isDirectory()) {
+      removeFileDir(`${path}/${item}`)
+    } else {
+      fs.unlinkSync(`${path}/${item}`)
+    }
+  }
+  fs.rmdirSync(path)
 }

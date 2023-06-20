@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import fs from 'fs'
 import { FormData } from 'formdata-node'
 import { fileFromPath } from 'formdata-node/file-from-path'
-import { getRangeCode, downloadFile } from './download.js'
+import { download } from './download.js'
 
 export const BASE_URL = 'https://api.trace.moe'
 
@@ -14,16 +14,13 @@ export async function TraceMoe(req) {
     return await request(form, cutBorders)
   } else if (url) {
     //download image
-    const fileName = getRangeCode(10) + '.temp'
-    const outPath = './temp'
-    const fullPath = `${outPath}/${fileName}`
-    await downloadFile(url, outPath, fileName)
+    const fullPath = await download(url)
     form.append('image', await fileFromPath(fullPath))
     const data = await request(form, cutBorders)
     fs.unlinkSync(fullPath)
     return data
   } else if (!imagePath) {
-    throw Error("please input file or url")
+    throw Error('please input file or url')
   }
 }
 
