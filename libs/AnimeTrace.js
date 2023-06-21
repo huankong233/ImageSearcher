@@ -37,7 +37,7 @@ export const request = async (req, form) => {
   ).then(res => res.json())
 
   if (response.code === 0) {
-    return await parse(response, req)
+    return await parse(response.data, req)
   } else {
     console.log(response)
     throw new Error('请求失败')
@@ -52,8 +52,8 @@ export const parse = async (response, req) => {
       image = await Jimp.read(req.imagePath)
       const width = image.getWidth()
       const height = image.getHeight()
-      for (let i = 0; i < response.data.length; i++) {
-        const box = response.data[i].box
+      for (let i = 0; i < response.length; i++) {
+        const box = response[i].box
         const newImage = image.clone()
         // 裁切图片
         newImage.crop(
@@ -62,11 +62,11 @@ export const parse = async (response, req) => {
           width * (box[2] - box[0]),
           height * (box[3] - box[1])
         )
-        response.data[i].preview = await newImage.getBase64Async(Jimp.AUTO)
+        response[i].preview = await newImage.getBase64Async(Jimp.AUTO)
       }
     } catch (error) {
-      for (let i = 0; i < response.data.length; i++) {
-        response.data[i].preview = 'fail unsupport image type'
+      for (let i = 0; i < response.length; i++) {
+        response[i].preview = 'fail unsupport image type'
       }
     }
   }
