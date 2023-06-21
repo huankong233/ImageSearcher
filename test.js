@@ -120,8 +120,8 @@ import { ascii2d, SauceNAO, IqDB, TraceMoe, EHentai, Yandex, AnimeTrace } from '
 // const AnimeTrace_response = await AnimeTrace({
 //   model: 'game_model_kirakira',
 //   mode: 0,
-//   imagePath: './Ehentai_test.jpg'
-//   url: 'https://th.bing.com/th/id/R.f4bf4d7653c717077ac8a60e44d1e707?rik=7mm83th4yJto8w&riu=http%3a%2f%2fi2.hdslb.com%2fbfs%2farchive%2f979b12d0baf07446c93c2bb0615759e3d1643b5a.jpg&ehk=IFpbI8QO5HKNuRVW%2bWTxlFdBNXxkoHrFjNCjCOr8SB4%3d&risl=&pid=ImgRaw&r=0',
+//   imagePath: './1.jpg',
+//   // url: 'https://th.bing.com/th/id/R.f4bf4d7653c717077ac8a60e44d1e707?rik=7mm83th4yJto8w&riu=http%3a%2f%2fi2.hdslb.com%2fbfs%2farchive%2f979b12d0baf07446c93c2bb0615759e3d1643b5a.jpg&ehk=IFpbI8QO5HKNuRVW%2bWTxlFdBNXxkoHrFjNCjCOr8SB4%3d&risl=&pid=ImgRaw&r=0',
 //   preview: true
 // })
 // console.dir(AnimeTrace_response, { depth: null })

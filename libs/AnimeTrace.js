@@ -47,20 +47,27 @@ export const request = async (req, form) => {
 import Jimp from 'jimp'
 export const parse = async (response, req) => {
   if (req.preview) {
-    const image = await Jimp.read(req.imagePath)
-    const width = image.getWidth()
-    const height = image.getHeight()
-    for (let i = 0; i < response.data.length; i++) {
-      const box = response.data[i].box
-      const newImage = image.clone()
-      // 裁切图片
-      newImage.crop(
-        width * box[0],
-        height * box[1],
-        width * (box[2] - box[0]),
-        height * (box[3] - box[1])
-      )
-      response.data[i].preview = await newImage.getBase64Async(Jimp.AUTO)
+    let image
+    try {
+      image = await Jimp.read(req.imagePath)
+      const width = image.getWidth()
+      const height = image.getHeight()
+      for (let i = 0; i < response.data.length; i++) {
+        const box = response.data[i].box
+        const newImage = image.clone()
+        // 裁切图片
+        newImage.crop(
+          width * box[0],
+          height * box[1],
+          width * (box[2] - box[0]),
+          height * (box[3] - box[1])
+        )
+        response.data[i].preview = await newImage.getBase64Async(Jimp.AUTO)
+      }
+    } catch (error) {
+      for (let i = 0; i < response.data.length; i++) {
+        response.data[i].preview = 'fail unsupport image type'
+      }
     }
   }
   return response
