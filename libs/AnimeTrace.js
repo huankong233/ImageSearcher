@@ -62,7 +62,7 @@ export const parse = async (response, req) => {
           width * (box[2] - box[0]),
           height * (box[3] - box[1])
         )
-        response[i].preview = await newImage.getBase64Async(Jimp.AUTO).split(',')[1]
+        response[i].preview = (await newImage.getBase64Async(Jimp.AUTO)).split(',')[1]
       }
     } catch (error) {
       for (let i = 0; i < response.length; i++) {
