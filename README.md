@@ -1,4 +1,9 @@
 # ImageSearcher
+！！！
+
+此仓库已不更新，请转移到[ts版本](https://github.com/huankong233/ImageSearcher-ts)
+
+！！！
 
 搜图库具体如何使用可以看`test.js`
 
